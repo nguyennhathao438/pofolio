@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyen Nhat Hao - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <style>
+    * { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', sans-serif; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .card-glow:hover {
+      box-shadow: 0 0 40px rgba(96, 165, 250, 0.15);
+    }
+    
+    .skill-tag {
+      transition: all 0.3s ease;
+    }
+    
+    .skill-tag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+    
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .nav-link {
+      position: relative;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-8px);
+    }
+    
+    .stat-card {
+      backdrop-filter: blur(10px);
+    }
+    
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s infinite;
+    }
+    
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-[#0a0a0f] text-gray-100 overflow-x-hidden">
+  <div id="app-wrapper" class="h-full w-full overflow-auto"><!-- Background Orbs -->
+   <div class="glow-orb w-96 h-96 bg-blue-500/20 top-0 left-0 fixed"></div>
+   <div class="glow-orb w-80 h-80 bg-purple-500/20 top-1/2 right-0 fixed"></div>
+   <div class="glow-orb w-64 h-64 bg-pink-500/20 bottom-0 left-1/3 fixed"></div><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-lg border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"><a href="#" class="text-xl font-bold gradient-text">NH</a>
+     <div class="hidden md:flex items-center gap-8"><a href="#about" class="nav-link text-gray-400 hover:text-white transition-colors">About</a> <a href="#skills" class="nav-link text-gray-400 hover:text-white transition-colors">Skills</a> <a href="#projects" class="nav-link text-gray-400 hover:text-white transition-colors">Projects</a> <a href="#contact" class="nav-link text-gray-400 hover:text-white transition-colors">Contact</a>
+     </div><a href="#contact" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"> Hire Me </a>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="min-h-screen flex items-center justify-center relative px-6 pt-20">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+     <div class="space-y-8">
+      <div class="space-y-4">
+       <p class="mono text-blue-400 text-sm tracking-wider">👋 Hello, I'm</p>
+       <h1 id="hero-name" class="text-5xl md:text-7xl font-bold leading-tight">Nguyen <span class="gradient-text">Nhat Hao</span></h1>
+       <p id="hero-tagline" class="text-xl text-gray-400 leading-relaxed max-w-lg">Building scalable systems and exploring the intersection of <span class="text-blue-400">backend development</span> and <span class="text-purple-400">artificial intelligence</span>.</p>
+      </div>
+      <div class="flex flex-wrap gap-4"><a href="#projects" class="group px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-medium flex items-center gap-2 hover:opacity-90 transition-all"> View My Work 
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg></a> <a href="#contact" class="px-6 py-3 border border-white/20 rounded-lg font-medium hover:bg-white/5 transition-colors"> Get In Touch </a>
+      </div><!-- Stats -->
+      <div class="flex flex-wrap gap-6 pt-8">
+       <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
+        <p class="text-3xl font-bold gradient-text">7+</p>
+        <p class="text-sm text-gray-400 mt-1">Projects Completed</p>
+       </div>
+       <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
+        <p class="text-3xl font-bold gradient-text">3+</p>
+        <p class="text-sm text-gray-400 mt-1">Years Experience</p>
+       </div>
+       <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
+        <p class="text-3xl font-bold gradient-text">3.22</p>
+        <p class="text-sm text-gray-400 mt-1">GPA</p>
+       </div>
+      </div>
+     </div><!-- Hero Visual -->
+     <div class="relative hidden lg:flex justify-center">
+      <div class="floating relative">
+       <div class="w-80 h-80 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center">
+        <div class="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 border border-white/10 flex items-center justify-center">
+         <div class="text-8xl">
+          👨‍💻
+         </div>
+        </div>
+       </div><!-- Floating Elements -->
+       <div class="absolute -top-4 -right-4 px-4 py-2 bg-[#1a1a2e] border border-white/10 rounded-lg mono text-sm text-blue-400">
+        &lt;/&gt; Backend
+       </div>
+       <div class="absolute -bottom-4 -left-4 px-4 py-2 bg-[#1a1a2e] border border-white/10 rounded-lg mono text-sm text-purple-400">
+        🤖 AI/ML
+       </div>
+       <div class="absolute top-1/2 -right-8 px-4 py-2 bg-[#1a1a2e] border border-white/10 rounded-lg mono text-sm text-pink-400">
+        ⚡ Full Stack
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="py-32 px-6 relative">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center gap-4 mb-12"><span class="mono text-blue-400">01.</span>
+      <h2 id="about-heading" class="text-3xl md:text-4xl font-bold">About Me</h2>
+      <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+     </div>
+     <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+       <p class="text-gray-400 leading-relaxed text-lg">I'm a third-year <span class="text-white">Software Engineering</span> student at <span class="text-blue-400">Sai Gon University</span> with a strong interest in backend development and full-stack web applications.</p>
+       <p class="text-gray-400 leading-relaxed text-lg">I have experience building practical systems using technologies such as <span class="text-purple-400">Spring Boot</span>, <span class="text-blue-400">React</span>, and <span class="text-green-400">MySQL</span>, focusing on RESTful APIs, authentication, and real-time communication.</p>
+       <p class="text-gray-400 leading-relaxed text-lg">Besides web development, I am actively exploring <span class="text-pink-400">artificial intelligence</span>, especially natural language processing and transformer-based models. I enjoy experimenting with tools such as <span class="text-yellow-400">Hugging Face</span> and running local LLMs.</p>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-8 card-glow transition-all duration-500">
+       <div class="mono text-sm text-gray-500 mb-4">
+        // quick_facts.json
+       </div>
+       <pre class="text-sm leading-relaxed"><span class="text-purple-400">{</span>
+  <span class="text-blue-400">"name"</span>: <span class="text-green-400">"Nguyen Nhat Hao"</span>,
+  <span class="text-blue-400">"role"</span>: <span class="text-green-400">"Software Engineer"</span>,
+  <span class="text-blue-400">"university"</span>: <span class="text-green-400">"Sai Gon University"</span>,
+  <span class="text-blue-400">"year"</span>: <span class="text-yellow-400">3</span>,
+  <span class="text-blue-400">"interests"</span>: <span class="text-purple-400">[</span>
+    <span class="text-green-400">"Backend Development"</span>,
+    <span class="text-green-400">"AI &amp; Machine Learning"</span>,
+    <span class="text-green-400">"System Design"</span>
+  <span class="text-purple-400">]</span>,
+  <span class="text-blue-400">"available"</span>: <span class="text-yellow-400">true</span>
+<span class="text-purple-400">}</span></pre>
+      </div>
+     </div>
+    </div>
+   </section><!-- Skills Section -->
+   <section id="skills" class="py-32 px-6 bg-[#0d0d14]">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center gap-4 mb-16"><span class="mono text-blue-400">02.</span>
+      <h2 class="text-3xl md:text-4xl font-bold">Skills &amp; Expertise</h2>
+      <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+     </div>
+     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"><!-- Backend -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-blue-500/50">
+       <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">⚙️</span>
+       </div>
+       <h3 class="text-xl font-semibold mb-4">Backend Development</h3>
+       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Django</span> <span class="skill-tag px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">SpringBoot</span> <span class="skill-tag px-3 py-1 bg-lime-500/20 text-lime-300 rounded-full text-sm">Node.js</span> <span class="skill-tag px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">Laravel</span> <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">MySQL</span> <span class="skill-tag px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-sm">MongoDB</span>
+       </div>
+      </div><!-- DevOps -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-purple-500/50">
+       <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">🐳</span>
+       </div>
+       <h3 class="text-xl font-semibold mb-4">DevOps</h3>
+       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Docker</span> <span class="skill-tag px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">Kubernetes</span> <span class="skill-tag px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm">CI/CD</span> <span class="skill-tag px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Linux</span>
+       </div>
+      </div><!-- AI/ML -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-pink-500/50">
+       <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">🤖</span>
+       </div>
+       <h3 class="text-xl font-semibold mb-4">AI &amp; Machine Learning</h3>
+       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">LLMs</span> <span class="skill-tag px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm">NLP</span> <span class="skill-tag px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Hugging Face</span> <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">Transformer</span>
+       </div>
+      </div><!-- System Design -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-cyan-500/50">
+       <div class="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">🏗️</span>
+       </div>
+       <h3 class="text-xl font-semibold mb-4">System Design</h3>
+       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">API Design</span> <span class="skill-tag px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">Database Design</span> <span class="skill-tag px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">Auth</span> <span class="skill-tag px-3 py-1 bg-violet-500/20 text-violet-300 rounded-full text-sm">Architecture</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Projects Section -->
+   <section id="projects" class="py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="flex items-center gap-4 mb-16"><span class="mono text-blue-400">03.</span>
+      <h2 class="text-3xl md:text-4xl font-bold">Featured Projects</h2>
+      <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8"><!-- Project 1 -->
+      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
+       <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center"><span class="text-6xl">🏨</span>
+       </div>
+       <div class="p-6 space-y-4">
+        <h3 class="text-xl font-semibold">Hotel Booking Management System</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">A web-based hotel booking management system that allows administrators to manage rooms, reservations, and customer information with user authentication.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs mono">SpringBoot</span> <span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">MySQL</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">React</span> <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded text-xs mono">Tailwind</span>
+        </div>
+        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg> Demo </a>
+        </div>
+       </div>
+      </div><!-- Project 2 -->
+      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
+       <div class="h-48 bg-gradient-to-br from-green-500/20 to-blue-500/20 flex items-center justify-center"><span class="text-6xl">💪</span>
+       </div>
+       <div class="p-6 space-y-4">
+        <h3 class="text-xl font-semibold">Fitness App</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">A web-based fitness application that helps users track workouts, calculate BMI, and manage daily nutrition and exercise data through an interactive interface.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 rounded text-xs mono">JavaScript</span> <span class="px-2 py-1 bg-red-500/20 text-red-300 rounded text-xs mono">Laravel</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">Python</span> <span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">MySQL</span>
+        </div>
+        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg> Demo </a>
+        </div>
+       </div>
+      </div><!-- Project 3 -->
+      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
+       <div class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center"><span class="text-6xl">📚</span>
+       </div>
+       <div class="p-6 space-y-4">
+        <h3 class="text-xl font-semibold">Library Management System</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">A desktop-based library management system for managing books, readers, and borrowing records with features such as book inventory management and loan tracking.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">Java</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">Java Swing</span> <span class="px-2 py-1 bg-red-500/20 text-red-300 rounded text-xs mono">SQL Server</span> <span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs mono">JDBC</span>
+        </div>
+        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg> Demo </a>
+        </div>
+       </div>
+      </div><!-- Project 4 -->
+      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
+       <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-green-500/20 flex items-center justify-center"><span class="text-6xl">📍</span>
+       </div>
+       <div class="p-6 space-y-4">
+        <h3 class="text-xl font-semibold">GPS Location Tracking Mobile App</h3>
+        <p class="text-gray-400 text-sm leading-relaxed">An Android mobile application that retrieves and displays real-time GPS location data using the device's location services with coordinate visualization.</p>
+        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">Java</span> <span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs mono">Android Studio</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">GPS</span>
+        </div>
+        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
+           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg> Demo </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-32 px-6 bg-[#0d0d14]">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="flex items-center justify-center gap-4 mb-8">
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent to-white/20"></div><span class="mono text-blue-400">04.</span>
+      <h2 id="contact-heading" class="text-3xl md:text-4xl font-bold">Get In Touch</h2>
+      <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
+     </div>
+     <p class="text-gray-400 text-lg mb-12 max-w-2xl mx-auto">I'm always interested in hearing about new projects and opportunities. Whether you have a question or just want to say hello, feel free to reach out.</p>
+     <div class="grid md:grid-cols-2 gap-6 mb-12"><a href="mailto:hao362k5@gmail.com" class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 card-glow group">
+       <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><span class="text-2xl">📧</span>
+       </div><h3 class="font-semibold mb-2">Email</h3><p class="text-gray-400 text-sm">hao362k5@gmail.com</p></a> <a href="https://github.com/nguyennhathao438" target="_blank" rel="noopener noreferrer" class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-purple-500/50 transition-all duration-300 card-glow group">
+       <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+        <svg class="w-6 h-6" fill="currentColor" viewbox="0 0 24 24">
+         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+        </svg>
+       </div><h3 class="font-semibold mb-2">GitHub</h3><p class="text-gray-400 text-sm">github.com/nguyennhathao438</p></a> <a href="#" class="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 card-glow group">
+       <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform"><span class="text-2xl">📘</span>
+       </div><h3 class="font-semibold mb-2">Facebook</h3><p class="text-gray-400 text-sm">Nguyen Nhat Hao</p></a>
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow">
+       <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4"><span class="text-2xl">📍</span>
+       </div>
+       <h3 class="font-semibold mb-2">Location</h3>
+       <p class="text-gray-400 text-sm">Vietnam • Available for Remote Work</p>
+      </div>
+     </div><a href="mailto:hao362k5@gmail.com" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl font-medium text-lg hover:opacity-90 transition-opacity"> Say Hello <span class="text-xl">👋</span> </a>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-8 px-6 border-t border-white/5">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+     <p class="text-gray-500 text-sm">Designed &amp; Built by <span class="text-gray-300">Nguyen Nhat Hao</span></p>
+     <p class="text-gray-500 text-sm mono">© 2024 All rights reserved</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      hero_title: "Nguyen Nhat Hao",
+      hero_subtitle: "Building scalable systems and exploring the intersection of backend development and artificial intelligence.",
+      about_title: "About Me",
+      contact_title: "Get In Touch",
+      background_color: "#0a0a0f",
+      surface_color: "#1a1a2e",
+      text_color: "#f3f4f6",
+      primary_color: "#60a5fa",
+      secondary_color: "#a78bfa",
+      font_family: "Space Grotesk",
+      font_size: 16
+    };
+
+    async function onConfigChange(config) {
+      // Update hero section
+      const heroName = document.getElementById('hero-name');
+      const nameParts = (config.hero_title || defaultConfig.hero_title).split(' ');
+      if (nameParts.length >= 2) {
+        heroName.innerHTML = `${nameParts[0]} <span class="gradient-text">${nameParts.slice(1).join(' ')}</span>`;
+      }
+      
+      const heroTagline = document.getElementById('hero-tagline');
+      heroTagline.innerHTML = (config.hero_subtitle || defaultConfig.hero_subtitle)
+        .replace('backend development', '<span class="text-blue-400">backend development</span>')
+        .replace('artificial intelligence', '<span class="text-purple-400">artificial intelligence</span>');
+      
+      // Update section titles
+      document.getElementById('about-heading').textContent = config.about_title || defaultConfig.about_title;
+      document.getElementById('contact-heading').textContent = config.contact_title || defaultConfig.contact_title;
+      
+      // Apply colors
+      const bgColor = config.background_color || defaultConfig.background_color;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      
+      document.body.style.backgroundColor = bgColor;
+      
+      // Apply font
+      const fontFamily = config.font_family || defaultConfig.font_family;
+      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+      
+      // Apply font size
+      const baseSize = config.font_size || defaultConfig.font_size;
+      document.body.style.fontSize = `${baseSize}px`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ surface_color: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          },
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              config.secondary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ secondary_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["hero_title", config.hero_title || defaultConfig.hero_title],
+        ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+        ["about_title", config.about_title || defaultConfig.about_title],
+        ["contact_title", config.contact_title || defaultConfig.contact_title]
+      ]);
+    }
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    } else {
+      onConfigChange(defaultConfig);
+    }
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9da2f891a3cc57a7',t:'MTc3MzE1MjU0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
