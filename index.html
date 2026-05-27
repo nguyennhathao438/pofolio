@@ -91,6 +91,26 @@
       opacity: 0.5;
       pointer-events: none;
     }
+    /* Modal animation */
+#project-modal {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  display: flex !important;
+}
+#project-modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+#project-modal > div {
+  transform: translateY(24px) scale(0.97);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.25s ease;
+}
+#project-modal.open > div {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
@@ -100,76 +120,157 @@
    <div class="glow-orb w-96 h-96 bg-blue-500/20 top-0 left-0 fixed"></div>
    <div class="glow-orb w-80 h-80 bg-purple-500/20 top-1/2 right-0 fixed"></div>
    <div class="glow-orb w-64 h-64 bg-pink-500/20 bottom-0 left-1/3 fixed"></div><!-- Navigation -->
-   <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/80 backdrop-blur-lg border-b border-white/5">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center"><a href="#" class="text-xl font-bold gradient-text">NH</a>
-     <div class="hidden md:flex items-center gap-8"><a href="#about" class="nav-link text-gray-400 hover:text-white transition-colors">About</a> <a href="#skills" class="nav-link text-gray-400 hover:text-white transition-colors">Skills</a> <a href="#projects" class="nav-link text-gray-400 hover:text-white transition-colors">Projects</a> <a href="#contact" class="nav-link text-gray-400 hover:text-white transition-colors">Contact</a>
-     </div><a href="#contact" class="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"> Hire Me </a>
-    </div>
-   </nav><!-- Hero Section -->
-   <section class="min-h-screen flex items-center justify-center relative px-6 pt-20">
-    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-     <div class="space-y-8">
-      <div class="space-y-4">
-       <p class="mono text-blue-400 text-sm tracking-wider">👋 Hello, I'm</p>
-       <h1 id="hero-name" class="text-5xl md:text-7xl font-bold leading-tight">Nguyen <span class="gradient-text">Nhat Hao</span></h1>
-       <p id="hero-tagline" class="text-xl text-gray-400 leading-relaxed max-w-lg">Building scalable systems and exploring the intersection of <span class="text-blue-400">backend development</span> and <span class="text-purple-400">artificial intelligence</span>.</p>
-      </div>
-      <div class="flex flex-wrap gap-4"><a href="#projects" class="group px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-medium flex items-center gap-2 hover:opacity-90 transition-all"> View My Work 
-        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg></a> <a href="#contact" class="px-6 py-3 border border-white/20 rounded-lg font-medium hover:bg-white/5 transition-colors"> Get In Touch </a>
-      </div><!-- Stats -->
-      <div class="flex flex-wrap gap-6 pt-8">
-       <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
-        <p class="text-3xl font-bold gradient-text">7+</p>
-        <p class="text-sm text-gray-400 mt-1">Projects Completed</p>
-       </div>
-       <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
-        <p class="text-3xl font-bold gradient-text">3+</p>
-        <p class="text-sm text-gray-400 mt-1">Years Experience</p>
-       </div>
-       <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
-        <p class="text-3xl font-bold gradient-text">3.53</p>
-        <p class="text-sm text-gray-400 mt-1">GPA</p>
-       </div>
-      </div>
-     </div><!-- Hero Visual -->
-     <div class="relative hidden lg:flex justify-center">
-      <div class="floating relative">
-       <div class="w-80 h-80 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center">
-        <div class="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30 border border-white/10 flex items-center justify-center">
-         <div class="text-8xl">
-          👨‍💻
-         </div>
+   <!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 z-50 px-6 pt-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center px-6 py-3.5 rounded-2xl border border-white/[0.12] bg-white/[0.04] backdrop-blur-xl"
+         style="box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 8px 32px rgba(0,0,0,0.4);">
+
+      <!-- Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
+             style="background: linear-gradient(135deg, #3b82f6, #8b5cf6);">
+          NH
         </div>
-       </div><!-- Floating Elements -->
-       <div class="absolute -top-4 -right-4 px-4 py-2 bg-[#1a1a2e] border border-white/10 rounded-lg mono text-sm text-blue-400">
-        &lt;/&gt; Backend
-       </div>
-       <div class="absolute -bottom-4 -left-4 px-4 py-2 bg-[#1a1a2e] border border-white/10 rounded-lg mono text-sm text-purple-400">
-        🤖 AI/ML
-       </div>
-       <div class="absolute top-1/2 -right-8 px-4 py-2 bg-[#1a1a2e] border border-white/10 rounded-lg mono text-sm text-pink-400">
-        ⚡ Full Stack
-       </div>
+        <div class="leading-tight">
+          <p class="text-sm font-semibold text-white leading-none">Nguyen Nhat Hao</p>
+          <p class="text-[10px] text-white/35 mt-0.5" style="font-family:'JetBrains Mono',monospace;">Software Engineer</p>
+        </div>
       </div>
-     </div>
+
+      <!-- Nav links -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="#about"    class="nav-link px-3 py-1.5 text-sm text-white/50 hover:text-white hover:bg-white/[0.06] rounded-lg transition-all duration-200">About</a>
+        <a href="#skills"   class="nav-link px-3 py-1.5 text-sm text-white/50 hover:text-white hover:bg-white/[0.06] rounded-lg transition-all duration-200">Skills</a>
+        <a href="#projects" class="nav-link px-3 py-1.5 text-sm text-white/50 hover:text-white hover:bg-white/[0.06] rounded-lg transition-all duration-200">Projects</a>
+        <a href="#contact"  class="nav-link px-3 py-1.5 text-sm text-white/50 hover:text-white hover:bg-white/[0.06] rounded-lg transition-all duration-200">Contact</a>
+      </div>
+
+      <!-- CTA -->
+      <a href="#contact"
+         class="px-4 py-2 text-sm font-semibold text-white rounded-xl transition-opacity hover:opacity-90"
+         style="background: linear-gradient(135deg, #60a5fa, #a78bfa);">
+        Hire Me
+      </a>
+
     </div>
-   </section><!-- About Section -->
+  </div>
+</nav><!-- Hero Section -->
+   <section class="min-h-screen flex items-center justify-center relative px-6 pt-20">
+  <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-start">
+
+    <!-- LEFT -->
+    <div class="space-y-8 pt-8">
+
+      <div class="space-y-4">
+        <p class="mono text-blue-400 text-lg md:text-xl tracking-wider font-medium">
+           Hello, I'm
+        </p>
+
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight min-h-[75px] whitespace-nowrap">
+  <span
+    id="hero-text"
+    class="gradient-text inline-block transition-opacity duration-500"
+  >
+    Nguyen Nhat Hao
+  </span>
+</h1>
+      </div>
+
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="#projects"
+          class="group px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-medium hover:opacity-90 transition-all"
+        >
+          View My Work
+        </a>
+
+        <a
+          href="#contact"
+          class="px-6 py-3 border border-white/20 rounded-lg font-medium hover:bg-white/5 transition-colors"
+        >
+          Get In Touch
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-6 pt-8">
+        <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
+          <p class="text-3xl font-bold gradient-text">7+</p>
+          <p class="text-sm text-gray-400 mt-1">Projects Completed</p>
+        </div>
+
+        <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
+          <p class="text-3xl font-bold gradient-text">3+</p>
+          <p class="text-sm text-gray-400 mt-1">Years Experience</p>
+        </div>
+
+        <div class="stat-card bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-center">
+          <p class="text-3xl font-bold gradient-text">3.53</p>
+          <p class="text-sm text-gray-400 mt-1">GPA</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="flex justify-center lg:justify-end items-start">
+
+      <div class="relative">
+
+        <!-- glow -->
+        <div class="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 blur-2xl opacity-40 scale-110"></div>
+
+        <!-- avatar -->
+        <img
+          src="./assets/avatar.jpg"
+          alt="Nguyen Nhat Hao"
+          class="relative z-10 w-80 h-80 object-cover rounded-full border-4 border-white/20 shadow-2xl"
+        />
+
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- About Section -->
    <section id="about" class="py-32 px-6 relative">
     <div class="max-w-6xl mx-auto">
-     <div class="flex items-center gap-4 mb-12"><span class="mono text-blue-400">01.</span>
+     <div class="flex items-center gap-4 mb-12"><span class="mono text-blue-400 text-2xl md:text-3xl font-bold">
+  01.
+</span>
       <h2 id="about-heading" class="text-3xl md:text-4xl font-bold">About Me</h2>
       <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
      </div>
      <div class="grid lg:grid-cols-2 gap-12 items-center">
       <div class="space-y-6">
-       <p class="text-gray-400 leading-relaxed text-lg">I'm a third-year <span class="text-white">Software Engineering</span> student at <span class="text-blue-400">Sai Gon University</span> with a strong interest in backend development and full-stack web applications.</p>
-       <p class="text-gray-400 leading-relaxed text-lg">I have experience building practical systems using technologies such as <span class="text-purple-400">Spring Boot</span>, <span class="text-blue-400">React</span>, and <span class="text-green-400">MySQL</span>, focusing on RESTful APIs, authentication, and real-time communication.</p>
-       <p class="text-gray-400 leading-relaxed text-lg">Besides web development, I am actively exploring <span class="text-pink-400">artificial intelligence</span>, especially natural language processing and transformer-based models. I enjoy experimenting with tools such as <span class="text-yellow-400">Hugging Face</span> and running local LLMs.</p>
-      </div>
+  <p class="text-gray-400 leading-relaxed text-lg">
+    I'm a <span class="text-white font-medium">3rd-year Software Engineering student</span>
+    at <span class="text-blue-400 font-medium">Saigon University (SGU)</span>.
+  </p>
+
+  <p class="text-gray-400 leading-relaxed text-lg">
+    Driven by my academic foundation and a deep focus on
+    <span class="text-orange-400 font-medium">Java</span>,
+    I specialize in building end-to-end applications across
+    <span class="text-purple-400 font-medium">Full-stack Web</span>,
+    <span class="text-green-400 font-medium">Mobile</span>, and
+    <span class="text-yellow-400 font-medium">Desktop</span> platforms.
+    Beyond standard development, I love elevating user experiences by implementing
+    <span class="text-cyan-400 font-medium">real-time features (WebSockets)</span>
+    and integrating
+    <span class="text-pink-400 font-medium">intelligent AI solutions</span>
+    into practical products.
+  </p>
+
+  <p class="text-gray-400 leading-relaxed text-lg">
+    Having equipped myself with a versatile technical toolkit, I am actively seeking a
+    <span class="text-white font-medium">Software Engineer Intern / Web Developer</span>
+    position to hit the ground running, tackle real-world challenges, and contribute to
+    <span class="text-blue-400 font-medium">impactful software projects</span>.
+  </p>
+</div>
       <div class="bg-white/5 border border-white/10 rounded-2xl p-8 card-glow transition-all duration-500">
        <div class="mono text-sm text-gray-500 mb-4">
-        // quick_facts.json
        </div>
        <pre class="text-sm leading-relaxed"><span class="text-purple-400">{</span>
   <span class="text-blue-400">"name"</span>: <span class="text-green-400">"Nguyen Nhat Hao"</span>,
@@ -177,8 +278,8 @@
   <span class="text-blue-400">"university"</span>: <span class="text-green-400">"Sai Gon University"</span>,
   <span class="text-blue-400">"year"</span>: <span class="text-yellow-400">3</span>,
   <span class="text-blue-400">"interests"</span>: <span class="text-purple-400">[</span>
-    <span class="text-green-400">"Backend Development"</span>,
-    <span class="text-green-400">"AI &amp; Machine Learning"</span>,
+    <span class="text-green-400">"Full-Stack Web Development"</span>,
+    <span class="text-green-400">"AI Integration"</span>,
     <span class="text-green-400">"System Design"</span>
   <span class="text-purple-400">]</span>,
   <span class="text-blue-400">"available"</span>: <span class="text-yellow-400">true</span>
@@ -188,129 +289,166 @@
     </div>
    </section><!-- Skills Section -->
    <section id="skills" class="py-32 px-6 bg-[#0d0d14]">
-    <div class="max-w-6xl mx-auto">
-     <div class="flex items-center gap-4 mb-16"><span class="mono text-blue-400">02.</span>
-      <h2 class="text-3xl md:text-4xl font-bold">Skills &amp; Expertise</h2>
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-center gap-4 mb-16">
+      <span class="mono text-blue-400 text-2xl md:text-3xl font-bold">
+  02.
+</span>
+      <h2 class="text-3xl md:text-4xl font-bold">Skills & Expertise</h2>
       <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
-     </div>
-     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"><!-- Backend -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-blue-500/50">
-       <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">⚙️</span>
-       </div>
-       <h3 class="text-xl font-semibold mb-4">Backend Development</h3>
-       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Django</span> <span class="skill-tag px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">SpringBoot</span> <span class="skill-tag px-3 py-1 bg-lime-500/20 text-lime-300 rounded-full text-sm">Node.js</span> <span class="skill-tag px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">Laravel</span> <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">MySQL</span> <span class="skill-tag px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-sm">MongoDB</span>
-       </div>
-      </div><!-- DevOps -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-purple-500/50">
-       <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">🐳</span>
-       </div>
-       <h3 class="text-xl font-semibold mb-4">DevOps</h3>
-       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Docker</span> <span class="skill-tag px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">Kubernetes</span> <span class="skill-tag px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm">CI/CD</span> <span class="skill-tag px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Linux</span>
-       </div>
-      </div><!-- AI/ML -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-pink-500/50">
-       <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">🤖</span>
-       </div>
-       <h3 class="text-xl font-semibold mb-4">AI &amp; Machine Learning</h3>
-       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">LLMs</span> <span class="skill-tag px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm">NLP</span> <span class="skill-tag px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Hugging Face</span> <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">Transformer</span>
-       </div>
-      </div><!-- System Design -->
-      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-cyan-500/50">
-       <div class="w-12 h-12 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-4"><span class="text-2xl">🏗️</span>
-       </div>
-       <h3 class="text-xl font-semibold mb-4">System Design</h3>
-       <div class="flex flex-wrap gap-2"><span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">API Design</span> <span class="skill-tag px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">Database Design</span> <span class="skill-tag px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">Auth</span> <span class="skill-tag px-3 py-1 bg-violet-500/20 text-violet-300 rounded-full text-sm">Architecture</span>
-       </div>
-      </div>
-     </div>
     </div>
-   </section><!-- Projects Section -->
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Languages -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-orange-500/50">
+        <div class="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">💻</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Languages</h3>
+
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">Java</span>
+          <span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Python</span>
+          <span class="skill-tag px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">JavaScript</span>
+          <span class="skill-tag px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">PHP</span>
+          <span class="skill-tag px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm">HTML/CSS</span>
+        </div>
+      </div>
+
+      <!-- Frameworks -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-green-500/50">
+        <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">⚙️</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Frameworks</h3>
+
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">Spring Boot</span>
+          <span class="skill-tag px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Java Swing</span>
+          <span class="skill-tag px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">Laravel</span>
+          <span class="skill-tag px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm">React</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-blue-500/50">
+        <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">🛠️</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Tools</h3>
+
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag px-3 py-1 bg-cyan-500/20 text-cyan-300 rounded-full text-sm">Docker Desktop</span>
+          <span class="skill-tag px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-sm">IntelliJ IDEA</span>
+          <span class="skill-tag px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">VS Code</span>
+          <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">Postman</span>
+          <span class="skill-tag px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-sm">Ollama</span>
+          <span class="skill-tag px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">MySQL Workbench</span>
+          <span class="skill-tag px-3 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-sm">Github</span>
+        </div>
+      </div>
+
+      <!-- Database & AI -->
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 card-glow transition-all duration-500 hover:border-pink-500/50">
+        <div class="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">🤖</span>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Database & AI</h3>
+
+        <div class="flex flex-wrap gap-2">
+          <span class="skill-tag px-3 py-1 bg-orange-500/20 text-orange-300 rounded-full text-sm">MySQL</span>
+          <span class="skill-tag px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">MongoDB</span>
+          <span class="skill-tag px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full text-sm">RAG</span>
+          <span class="skill-tag px-3 py-1 bg-yellow-500/20 text-yellow-300 rounded-full text-sm">Hugging Face</span>
+          <span class="skill-tag px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">LLMs</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section><!-- Projects Section -->
    <section id="projects" class="py-32 px-6">
-    <div class="max-w-6xl mx-auto">
-     <div class="flex items-center gap-4 mb-16"><span class="mono text-blue-400">03.</span>
+  <div class="max-w-6xl mx-auto">
+
+    <div class="flex items-center gap-4 mb-16">
+      <span class="mono text-blue-400 text-2xl md:text-3xl font-bold">
+  03.
+</span>
       <h2 class="text-3xl md:text-4xl font-bold">Featured Projects</h2>
       <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
-     </div>
-     <div class="grid md:grid-cols-2 gap-8"><!-- Project 1 -->
-      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
-       <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center"><span class="text-6xl">🏨</span>
-       </div>
-       <div class="p-6 space-y-4">
-        <h3 class="text-xl font-semibold">Hotel Booking Management System</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">A web-based hotel booking management system that allows administrators to manage rooms, reservations, and customer information with user authentication.</p>
-        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs mono">SpringBoot</span> <span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">MySQL</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">React</span> <span class="px-2 py-1 bg-cyan-500/20 text-cyan-300 rounded text-xs mono">Tailwind</span>
-        </div>
-        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
-           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg> Demo </a>
-        </div>
-       </div>
-      </div><!-- Project 2 -->
-      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
-       <div class="h-48 bg-gradient-to-br from-green-500/20 to-blue-500/20 flex items-center justify-center"><span class="text-6xl">💪</span>
-       </div>
-       <div class="p-6 space-y-4">
-        <h3 class="text-xl font-semibold">Fitness App</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">A web-based fitness application that helps users track workouts, calculate BMI, and manage daily nutrition and exercise data through an interactive interface.</p>
-        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-yellow-500/20 text-yellow-300 rounded text-xs mono">JavaScript</span> <span class="px-2 py-1 bg-red-500/20 text-red-300 rounded text-xs mono">Laravel</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">Python</span> <span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">MySQL</span>
-        </div>
-        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
-           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg> Demo </a>
-        </div>
-       </div>
-      </div><!-- Project 3 -->
-      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
-       <div class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center"><span class="text-6xl">📚</span>
-       </div>
-       <div class="p-6 space-y-4">
-        <h3 class="text-xl font-semibold">Library Management System</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">A desktop-based library management system for managing books, readers, and borrowing records with features such as book inventory management and loan tracking.</p>
-        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">Java</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">Java Swing</span> <span class="px-2 py-1 bg-red-500/20 text-red-300 rounded text-xs mono">SQL Server</span> <span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs mono">JDBC</span>
-        </div>
-        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
-           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg> Demo </a>
-        </div>
-       </div>
-      </div><!-- Project 4 -->
-      <div class="project-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-glow">
-       <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-green-500/20 flex items-center justify-center"><span class="text-6xl">📍</span>
-       </div>
-       <div class="p-6 space-y-4">
-        <h3 class="text-xl font-semibold">GPS Location Tracking Mobile App</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">An Android mobile application that retrieves and displays real-time GPS location data using the device's location services with coordinate visualization.</p>
-        <div class="flex flex-wrap gap-2"><span class="px-2 py-1 bg-orange-500/20 text-orange-300 rounded text-xs mono">Java</span> <span class="px-2 py-1 bg-green-500/20 text-green-300 rounded text-xs mono">Android Studio</span> <span class="px-2 py-1 bg-blue-500/20 text-blue-300 rounded text-xs mono">GPS</span>
-        </div>
-        <div class="flex gap-4 pt-2"><a href="#" class="text-gray-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24">
-           <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg> Code </a> <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors flex items-center gap-2 text-sm">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg> Demo </a>
-        </div>
-       </div>
-      </div>
-     </div>
     </div>
-   </section><!-- Contact Section -->
+
+    <div
+      id="project-list"
+      class="grid md:grid-cols-2 gap-8"
+    ></div>
+
+    <div class="flex justify-center items-center gap-2 mt-12" id="pagination"></div>
+  </div>
+</section>
+<div
+  id="project-modal"
+  class="fixed inset-0 hidden bg-black/70 backdrop-blur-sm z-50 items-center justify-center p-6"
+>
+  <div class="max-w-5xl w-full bg-[#111827] rounded-2xl border border-white/10 p-8 relative">
+
+    <button
+      onclick="closeModal()"
+      class="absolute top-6 right-6 text-2xl text-gray-400 hover:text-white"
+    >
+      ×
+    </button>
+
+    <h3
+      id="modal-title"
+      class="text-2xl font-bold mb-2"
+    ></h3>
+
+    <div
+      id="modal-meta"
+      class="text-sm text-blue-400 mb-8"
+    ></div>
+
+    <div class="grid md:grid-cols-2 gap-12">
+
+      <div>
+        <h4 class="font-semibold text-lg mb-4">
+          Project Overview
+        </h4>
+
+        <p
+          id="modal-overview"
+          class="text-gray-400 mb-6"
+        ></p>
+
+        <ul
+          id="modal-features"
+          class="space-y-2 text-gray-300"
+        ></ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-lg mb-4">
+          My Contributions
+        </h4>
+
+        <ul
+          id="modal-responsibilities"
+          class="space-y-2 text-gray-300"
+        ></ul>
+      </div>
+      <div id="modal-github" class="mt-6 pt-6 border-t border-white/10"></div>
+    </div>
+  </div>
+</div>
+<!-- Contact Section -->
    <section id="contact" class="py-32 px-6 bg-[#0d0d14]">
     <div class="max-w-4xl mx-auto text-center">
      <div class="flex items-center justify-center gap-4 mb-8">
-      <div class="flex-1 h-px bg-gradient-to-r from-transparent to-white/20"></div><span class="mono text-blue-400">04.</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent to-white/20"></div><span class="mono text-blue-400 text-2xl md:text-3xl font-bold">
+  04.
+</span>
       <h2 id="contact-heading" class="text-3xl md:text-4xl font-bold">Get In Touch</h2>
       <div class="flex-1 h-px bg-gradient-to-r from-white/20 to-transparent"></div>
      </div>
@@ -357,36 +495,44 @@
     };
 
     async function onConfigChange(config) {
-      // Update hero section
-      const heroName = document.getElementById('hero-name');
-      const nameParts = (config.hero_title || defaultConfig.hero_title).split(' ');
-      if (nameParts.length >= 2) {
-        heroName.innerHTML = `${nameParts[0]} <span class="gradient-text">${nameParts.slice(1).join(' ')}</span>`;
-      }
-      
-      const heroTagline = document.getElementById('hero-tagline');
-      heroTagline.innerHTML = (config.hero_subtitle || defaultConfig.hero_subtitle)
-        .replace('backend development', '<span class="text-blue-400">backend development</span>')
-        .replace('artificial intelligence', '<span class="text-purple-400">artificial intelligence</span>');
-      
-      // Update section titles
-      document.getElementById('about-heading').textContent = config.about_title || defaultConfig.about_title;
-      document.getElementById('contact-heading').textContent = config.contact_title || defaultConfig.contact_title;
-      
-      // Apply colors
-      const bgColor = config.background_color || defaultConfig.background_color;
-      const primaryColor = config.primary_color || defaultConfig.primary_color;
-      
-      document.body.style.backgroundColor = bgColor;
-      
-      // Apply font
-      const fontFamily = config.font_family || defaultConfig.font_family;
-      document.body.style.fontFamily = `${fontFamily}, sans-serif`;
-      
-      // Apply font size
-      const baseSize = config.font_size || defaultConfig.font_size;
-      document.body.style.fontSize = `${baseSize}px`;
+  const heroName = document.getElementById('hero-name');
+  if (heroName) {
+    const nameParts = (config.hero_title || defaultConfig.hero_title).split(' ');
+    if (nameParts.length >= 2) {
+      heroName.innerHTML = `${nameParts[0]} <span class="gradient-text">${nameParts.slice(1).join(' ')}</span>`;
     }
+  }
+
+  const heroTagline = document.getElementById('hero-tagline');
+  if (heroTagline) {
+    heroTagline.innerHTML = (config.hero_subtitle || defaultConfig.hero_subtitle)
+      .replace('backend development', '<span class="text-blue-400">backend development</span>')
+      .replace('artificial intelligence', '<span class="text-purple-400">artificial intelligence</span>');
+  }
+
+  const aboutHeading = document.getElementById('about-heading');
+  if (aboutHeading) {
+    aboutHeading.textContent =
+      config.about_title || defaultConfig.about_title;
+  }
+
+  const contactHeading = document.getElementById('contact-heading');
+  if (contactHeading) {
+    contactHeading.textContent =
+      config.contact_title || defaultConfig.contact_title;
+  }
+
+  const bgColor = config.background_color || defaultConfig.background_color;
+  const primaryColor = config.primary_color || defaultConfig.primary_color;
+
+  document.body.style.backgroundColor = bgColor;
+
+  const fontFamily = config.font_family || defaultConfig.font_family;
+  document.body.style.fontFamily = `${fontFamily}, sans-serif`;
+
+  const baseSize = config.font_size || defaultConfig.font_size;
+  document.body.style.fontSize = `${baseSize}px`;
+}
 
     function mapToCapabilities(config) {
       return {
@@ -476,6 +622,321 @@
         }
       });
     });
+    const heroTexts = [
+  "Nguyen Nhat Hao",
+  "Software Engineering",
+  "Software Developer"
+];
+
+let current = 0;
+
+const heroText = document.getElementById("hero-text");
+
+setInterval(() => {
+  heroText.classList.add("opacity-0");
+
+  setTimeout(() => {
+    current = (current + 1) % heroTexts.length;
+    heroText.textContent = heroTexts[current];
+    heroText.classList.remove("opacity-0");
+  }, 300);
+
+}, 3000);
+const projects = [
+  {
+    name: "Hotel Booking Management System",
+    image: "./assets/hotel.jpg",
+    type: "Team Project",
+    role: "Leader",
+    githubUrl: "https://github.com/nguyennhathao438/hotel-booking-management",
+    tech: ["Spring Boot", "React", "MySQL", "Tailwind"],
+
+
+    overview:
+      "A modern client-server hotel management platform featuring real-time communication, comprehensive booking workflows, and dedicated dashboards for customers, hotel owners, and administrators.",
+
+    features: [
+  "Real-time messaging (WebSocket) between customers and hosts",
+  "Online room booking & room availability tracking",
+  "Hotel profile & room inventory management for owners",
+  "Revenue statistics, invoicing & service history reporting",
+  "Admin Panel for user management, role authorization, and content moderation",
+  "Customer feedback & rating system"
+],
+
+    responsibilities: [
+  "Designed the overall system architecture, including business workflows, feature planning, and database schema design.",
+  "Implemented flexible role-based access control (RBAC) and user authentication using JWT for administrators, hotel owners, and customers.",
+  "Integrated Google and Facebook login using OAuth2 to provide secure and convenient social authentication.",
+  "Built a real-time messaging system using WebSocket to enable direct communication between customers and hotel owners.",
+  "Developed RESTful APIs for booking management, room management, authentication, and user interactions.",
+ "Containerized frontend, backend, and database services with Docker to simplify local development and deployment workflows.",
+]
+  },
+  {
+    name: "Flogin",
+    image: "./assets/flogin.jpg",
+    type: "Team Project",
+    role: "Leader",
+        githubUrl: "https://github.com/nguyennhathao438/Fitness-app",
+    tech: ["Spring Boot",
+    "React",
+    "MySQL",
+    "JUnit",
+    "Mockito",
+    "Cypress",
+    "CI/CD"],
+
+    overview:
+      "A full-stack testing-focused application built to ensure software quality, reliability, and performance across both frontend and backend through comprehensive automated testing and continuous integration workflows.A full-stack testing-focused application built to validate authentication workflows and product management operations. The project focuses on ensuring reliability, performance, and maintainability across both backend and frontend through comprehensive automated testing.",
+
+    features: [
+  "User authentication",
+  "Product CRUD management",
+  "Unit testing",
+  "Integration testing",
+  "Mock testing",
+  "End-to-end testing",
+  "Performance testing",
+  "CI/CD pipeline automation"
+],
+
+    responsibilities: [
+  "Developed backend login authentication functionality using Spring Boot.",
+
+  "Implemented unit tests for service and business logic layers using JUnit.",
+
+  "Built mock tests with Mockito to isolate dependencies and validate application behavior.",
+
+  "Configured end-to-end testing with Cypress to validate core user workflows.",
+
+  "Set up CI/CD pipelines with GitHub Actions to automate testing and build processes."
+]
+  }
+  ,{
+    name: "Fitness App",
+    image: "./assets/fitness.jpg",
+    type: "Team Project",
+        githubUrl: "https://github.com/nguyennhathao438/FloginFE_BE",
+    role: "Leader",
+    tech: [
+    "Laravel",
+    "PHP",
+    "MySQL",
+    "React",
+    "JavaScript"
+  ],
+
+    overview:
+      "A full-stack fitness management platform designed to support nutrition tracking, workout monitoring, and personalized coaching experiences for gym members and personal trainers.",
+
+    features: [
+  "Workout tracking and exercise management",
+  "Nutrition tracking with daily meal planning",
+  "Body metrics monitoring (weight, BMI, progress tracking)",
+  "Appointment scheduling between members and personal trainers",
+  "Real-time messaging between members and personal trainers",
+  "Multi-purpose AI chatbot for fitness and nutrition support",
+  "Membership and training package management",
+  "Member and personal trainer management",
+  "Role-based access control for administrators, trainers, and members"
+],
+
+    responsibilities: [
+  "Developed full-stack features including user registration, login, role-based access control (RBAC), and training package subscription management.",
+
+  "Integrated a multi-purpose AI chatbot using Ollama combined with NLP intent classification for fitness and nutrition queries.",
+
+  "Designed system architecture and database schema for core modules including users,body metrics, workouts, and training packages."
+]
+  },
+  {
+  name: "Smart Doc AI",
+  image: "./assets/smartdoc.jpg",
+  type: "Personal Project",
+  githubUrl: "https://github.com/nguyennhathao438/SmartDoc_AI",
+  role: "Fullstack Developer",
+
+  tech: [
+    "RAG",
+    "GraphRAG",
+    "FAISS",
+    "Ollama",
+    "Streamlit",
+    "SQLite"
+  ],
+
+  overview:
+    "AI-powered document intelligence system that supports semantic search, summarization, and question answering over PDF/DOC files. The system integrates multiple retrieval strategies including RAG, Self-RAG, CoRAG (corrective reasoning), and GraphRAG to improve factual grounding and response accuracy using FAISS and local LLMs via Ollama.",
+
+  features: [
+    "Upload and process PDF/DOC documents for AI analysis",
+    "Semantic search using FAISS vector database",
+    "Multi-turn conversation with document-aware context",
+    "RAG, Self-RAG, and CoRAG pipelines for response refinement",
+    "GraphRAG-based knowledge graph retrieval for structured reasoning",
+    "AI-powered summarization and question answering",
+    "Chat history persistence using SQLite",
+    "Configurable LLM parameters (temperature, top-k, top-p)"
+  ],
+
+  responsibilities: [
+    "Designed multi-retrieval architecture combining RAG, Self-RAG, CoRAG, and GraphRAG",
+    "Implemented FAISS-based vector retrieval system",
+    "Built GraphRAG module using knowledge graph for structured document reasoning",
+    "Integrated Ollama local LLM for offline inference",
+    "Developed document ingestion pipeline for PDF/DOC parsing",
+    "Designed Streamlit UI for interactive document Q&A system",
+    "Implemented SQLite-based chat history storage"
+  ]
+},
+{
+  name: "Gold Price Converter App",
+  type: "Personal Java Project",
+  role: "Java Developer",
+  image: "./assets/gold.jpg",
+  tech: ["Java", "REST API", "SQLite", "Chart Library"],
+  githubUrl: "https://github.com/nguyennhathao438/gold_app",
+  overview:
+    "Java application that fetches real-time gold prices and converts gold units (SJC, 24K, Ounce, Gram) to VND. The app supports live price updates, history tracking, and basic price trend visualization.",
+
+  features: [
+    "Fetch real-time gold prices from external API",
+    "Convert gold units to VND instantly",
+    "Support multiple gold types (SJC, 24K, 18K, Ounce, Gram)",
+    "Live price dashboard",
+    "Save conversion history locally (SQLite)",
+    "Simple 7-day price trend chart"
+  ],
+
+  responsibilities: [
+    "Developed application using Java",
+    "Integrated REST API for gold price data",
+    "Implemented gold conversion logic",
+    "Stored user history using SQLite",
+    "Built simple chart for price tracking"
+  ]
+}
+];
+let currentPage = 1;
+const perPage = 4;
+
+function renderProjects() {
+  const list = document.getElementById("project-list");
+  const start = (currentPage - 1) * perPage;
+  const currentProjects = projects.slice(start, start + perPage);
+
+  list.innerHTML = currentProjects
+    .map(
+      (project, index) => `
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+
+          ${
+            project.image
+              ? `<img src="${project.image}" class="w-full h-full object-cover">`
+              : `<span class="text-6xl">📁</span>`
+          }
+
+        </div>
+
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-4">
+            ${project.name}
+            ${project.githubUrl ? `
+    <a
+      href="${project.githubUrl}"
+      target="_blank"
+      class="text-blue-400 hover:text-blue-300 text-sm"
+    >
+      GitHub ↗
+    </a>
+  ` : ""}
+          </h3>
+
+          <div class="flex flex-wrap gap-2 mb-6">
+            ${project.tech
+              .map(
+                t => `
+              <span class="px-2 py-1 bg-blue-500/20 rounded text-sm">
+                ${t}
+              </span>
+            `
+              )
+              .join("")}
+          </div>
+
+          <button
+            onclick="openModal(${start + index})"
+            class="text-blue-400 hover:text-blue-300"
+          >
+            View Details →
+          </button>
+          
+        </div>
+      </div>
+    `
+    )
+    .join("");
+    renderPagination();
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(projects.length / perPage);
+  const pg = document.getElementById("pagination");
+  pg.innerHTML = "";
+
+  // Nút ‹
+  const prev = document.createElement("button");
+  prev.innerHTML = "‹";
+  prev.disabled = currentPage === 1;
+  prev.className = "w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:border-blue-500 disabled:opacity-30 disabled:cursor-not-allowed text-lg";
+  prev.onclick = () => { if (currentPage > 1) { currentPage--; renderProjects(); } };
+  pg.appendChild(prev);
+
+  // Số trang
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.className = "w-9 h-9 flex items-center justify-center rounded-xl border text-sm font-medium transition-all " +
+      (i === currentPage
+        ? "bg-gradient-to-r from-blue-500 to-purple-500 border-transparent text-white"
+        : "bg-white/5 border-white/10 hover:border-blue-500");
+    btn.onclick = () => { currentPage = i; renderProjects(); };
+    pg.appendChild(btn);
+  }
+
+  // Nút ›
+  const next = document.createElement("button");
+  next.innerHTML = "›";
+  next.disabled = currentPage === totalPages;
+  next.className = "w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:border-blue-500 disabled:opacity-30 disabled:cursor-not-allowed text-lg";
+  next.onclick = () => { if (currentPage * perPage < projects.length) { currentPage++; renderProjects(); } };
+  pg.appendChild(next);
+}
+
+function openModal(index) {
+  const p = projects[index];
+  document.getElementById("modal-title").textContent = p.name;
+  document.getElementById("modal-meta").textContent = `${p.type} • ${p.role}`;
+  document.getElementById("modal-overview").textContent = p.overview;
+  document.getElementById("modal-features").innerHTML = p.features.map(i => `<li>• ${i}</li>`).join("");
+  document.getElementById("modal-responsibilities").innerHTML = p.responsibilities.map(i => `<li>• ${i}</li>`).join("");
+  document.getElementById("modal-github").innerHTML = p.githubUrl
+    ? `<a href="${p.githubUrl}" target="_blank" class="text-blue-400 hover:text-blue-300">View Source Code ↗</a>` : "";
+
+  const modal = document.getElementById("project-modal");
+  modal.style.pointerEvents = "auto";
+  requestAnimationFrame(() => modal.classList.add("open"));
+}
+
+function closeModal() {
+  const modal = document.getElementById("project-modal");
+  modal.classList.remove("open");
+  modal.style.pointerEvents = "none";
+}
+
+renderProjects();
   </script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9da2f891a3cc57a7',t:'MTc3MzE1MjU0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
